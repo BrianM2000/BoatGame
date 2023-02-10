@@ -5,6 +5,9 @@ using UnityEngine;
 public class PanelScript : MonoBehaviour
 {
     public GameObject boat;
+    public GameObject MainSailorPanel;
+    static GameObject sp;
+    CreateNewSailorPanel p;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,5 +26,21 @@ public class PanelScript : MonoBehaviour
 
     public void OnSliderValueChange(float val){
         boat.GetComponent<BoatAI>().curSailors = val;
+    }
+
+    public void OnButtonPress(){
+        if(sp == null){
+            sp = Instantiate(MainSailorPanel, transform.root.position, transform.rotation, transform.root);
+            p = sp.GetComponentInChildren<CreateNewSailorPanel>();
+            p.boat = boat;
+            p.InstantiateSailorPanels();
+        }
+        else{
+            Destroy(sp);
+            sp = Instantiate(MainSailorPanel, transform.root.position, transform.rotation, transform.root);
+            p = sp.GetComponentInChildren<CreateNewSailorPanel>();
+            p.boat = boat;
+            p.InstantiateSailorPanels();
+        }
     }
 }

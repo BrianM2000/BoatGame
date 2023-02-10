@@ -9,6 +9,9 @@ public abstract class Cannonball : MonoBehaviour
     public float damage = 10;
     public GameObject parent;
     [SerializeField] ParticleSystem splash;
+    bool isColliding;
+    float splashDamageRange = 10f;
+    float sailorDamage = 50;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,16 +29,60 @@ public abstract class Cannonball : MonoBehaviour
         parent = transform.parent.transform.parent.transform.parent.gameObject;
         var parentComp = GetComponentInParent<Cannon>();
         Vector3 dir = parentComp.cannonDirection;
-        body.AddForce(dir, ForceMode.VelocityChange);
+        float range = parentComp.cannonError * (1f/parentComp.GetComponent<Task>().sumWorkSpeedMod());
+        body.AddForce(dir + 
+            new Vector3(Random.Range(-range,range),
+            Random.Range(-range,range),
+            Random.Range(-range,range)), 
+            ForceMode.VelocityChange);
         transform.parent = null;
     }
 
     public virtual void OnUpdate(){
+        isColliding = false;
         if(transform.position.y < 0){
             Instantiate(splash, transform.position, Quaternion.Euler(0,0,0));
             //Debug.Log(transform.position);
             Destroy(gameObject);
         }
+    }
+
+    private void OnCollisionEnter(Collision collision){
+        GameObject obj = collision.gameObject;
+
+        if(isColliding) return;
+        isColliding = true;
+
+        Vector3 impactPoint = collision.GetContact(0).point;
+
+        //Debug.Log(parent + " " + obj.transform.root.gameObject);
+
+        if(parent == obj.transform.root.gameObject){
+            return;
+        }
+
+        if((obj.tag == "PlayerBoat" || obj.tag == "EnemyBoat")){
+            BoatAI boat = obj.GetComponent<BoatAI>();
+            boat.health = boat.health - damage;
+            boat.curMaxHealth = boat.curMaxHealth - damage * .25f; //Deal a percentage of damage as permanant damage
+            Instantiate(boat.hole, collision.GetContact(0).point, boat.transform.rotation, boat.transform);
+
+            foreach(Sailor s in boat.sailors){
+                float dist = Vector3.Distance(s.transform.position, impactPoint);
+                if(dist <= splashDamageRange){
+                    s.takeDamage(sailorDamage * (dist/splashDamageRange));
+                }
+            }
+
+        }
+
+        if(obj.tag == "Sailor"){
+            Sailor s = obj.GetComponent<Sailor>();
+            s.takeDamage(s.health + 1f);
+        }
+
+        Destroy(gameObject);
+
     }
 
 }

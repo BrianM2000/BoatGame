@@ -5,7 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class ChangeScene : MonoBehaviour
 {
-    public GameObject PlayerStats;
     public void LoadScene(int id){
         StartCoroutine(LoadAsync(id));
     }

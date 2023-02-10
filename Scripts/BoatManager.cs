@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class BoatManager : MonoBehaviour
 {
     public static List<GameObject> boatList = new List<GameObject>();
+    public List<GameObject> sailors = new List<GameObject>();
     public GameObject boat;
     public bool pause;
     public Canvas canvas;
@@ -14,15 +15,27 @@ public class BoatManager : MonoBehaviour
     public Cannonball heavyBall;
     public bool active = false;
     public GameObject sideUI;
+    public GameObject sailorUI;
     public float width = 600;
     public float height = 300;
     public float tokens = 1;
     public float maxTime = 30;
     public float minTime = 10;
     public float timer;
+    GameObject playerManager;
+    PlayerManager pm;
     void Start() {
         pause = true;
         timer = 0;
+
+        playerManager = GameObject.Find("PlayerManager");
+        pm = playerManager.GetComponent<PlayerManager>();
+
+        foreach(GameObject s in pm.sailors){
+            GameObject sailor = Instantiate(s, Vector3.zero, Quaternion.identity);
+            sailor.SetActive(false);
+            sailors.Add(sailor);
+        }
     }
 
     void Update(){
@@ -43,7 +56,7 @@ public class BoatManager : MonoBehaviour
             BoatAI ba = b.GetComponent<BoatAI>();
             float randSailors = Random.Range(1, ba.maxSailors);
             ba.curSailors = randSailors;
-            ba.InstantiateSailors();
+            ba.InstantiateBasicSailors();
             boatList.Add(b);
             tokens--;
         }
@@ -54,6 +67,11 @@ public class BoatManager : MonoBehaviour
     }
     public void StartUp(){
         sideUI.SetActive(false);
+        sailorUI = GameObject.Find("SailorScrollObject(Clone)");
+        if(sailorUI != null){
+            sailorUI.SetActive(false);
+        }
+        
 
         pause = false;
 

@@ -79,7 +79,7 @@ public class Cannon : MonoBehaviour
         VxzDirection = direction * Vxz;
         VxzDirection.y = Vy;
 
-        cannonDirection = VxzDirection + new Vector3(Random.Range(-cannonError,cannonError),Random.Range(-cannonError,cannonError),Random.Range(-cannonError,cannonError));
+        cannonDirection = VxzDirection;
         //Debug.Log(cannonDirection);
 
         Vector3 newDir = Vector3.RotateTowards(transform.up, cannonDirection, rotateSpeed * Time.deltaTime, 100);
@@ -88,7 +88,7 @@ public class Cannon : MonoBehaviour
 
         if(timer > 0f){
             if(task.isManned && !isLoaded){
-                timer = timer - Time.deltaTime;
+                timer = timer - Time.deltaTime * task.sumWorkSpeedMod();
             }
             else{
                 timer = reloadSpeed;
@@ -100,7 +100,7 @@ public class Cannon : MonoBehaviour
         }
         
         if(canFire && task.isManned && isLoaded){
-            Instantiate(ball, transform.position, transform.rotation, transform);
+            Instantiate(ball, transform.position + transform.forward, transform.rotation, transform);
             isLoaded = false;
         }
 

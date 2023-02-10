@@ -42,5 +42,6 @@ public class MouseDrag : MonoBehaviour
             return;
         }
         transform.position = GetMouseAsWorldPoint() + mOffset;
+        transform.position = new Vector3(transform.position.x, 0, transform.position.z);
     }
 }

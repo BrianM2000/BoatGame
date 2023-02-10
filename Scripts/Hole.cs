@@ -24,7 +24,7 @@ public class Hole : MonoBehaviour
                 timer = timer - Time.deltaTime;
             }
             else{
-                task.sailor.freeFromTask();
+                task.sailors[0].freeFromTask();
                 Destroy(gameObject);
             }
         }
