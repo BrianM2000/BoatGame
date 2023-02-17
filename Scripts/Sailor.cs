@@ -4,17 +4,20 @@ using UnityEngine;
 
 public abstract class Sailor : MonoBehaviour
 {
-    public float health = 100f;
+    public float baseHealth = 100f;
+    public float health;
     public bool isAlive = true;
     public bool isWorking = false;
-    public float workSpeedModifier = 1f;
+    public float baseWorkSpeedModifer;
+    public float workSpeedModifier;
     public float availability = 0; //0 for free, 1 for absolutely not free at all
     public Task task;
     public bool availableForAssignment = true;
     // Start is called before the first frame update
     void Start()
     {
-        
+        health = baseHealth;
+        workSpeedModifier = baseWorkSpeedModifer;
     }
 
     // Update is called once per frame
@@ -58,7 +61,19 @@ public abstract class Sailor : MonoBehaviour
 
     public virtual void die(){
         isAlive = false;
-        freeFromTask();
+        if(isWorking){
+            freeFromTask();
+        }
+        
+    }
+
+    public void reset(){
+        health = baseHealth;
+        workSpeedModifier = baseWorkSpeedModifer;
+        isWorking = false;
+        task = null;
+        availability = 0f;
+        availableForAssignment = true;
     }
 
 }

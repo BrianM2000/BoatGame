@@ -11,6 +11,7 @@ public class CameraControls : MonoBehaviour
     public float scrollSens = 1;
     public float moveSpeed;
     float pos;
+    public GameObject focus;
 
     // Start is called before the first frame update
     void Start()
@@ -36,16 +37,24 @@ public class CameraControls : MonoBehaviour
         //move in x and z
         if(Input.GetKey("w")){
             transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + moveSpeed * Time.deltaTime);
+            focus = null;
         }
         if(Input.GetKey("s")){
             transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z - moveSpeed * Time.deltaTime);
+            focus = null;
         }
 
         if(Input.GetKey("a")){
             transform.position = new Vector3(transform.position.x - moveSpeed * Time.deltaTime, transform.position.y, transform.position.z);
+            focus = null;
         }
         if(Input.GetKey("d")){
             transform.position = new Vector3(transform.position.x + moveSpeed * Time.deltaTime, transform.position.y, transform.position.z);
+            focus = null;
+        }
+
+        if(focus != null){
+            transform.position = Vector3.MoveTowards(transform.position, new Vector3(focus.transform.position.x, transform.position.y, focus.transform.position.z), moveSpeed * Time.deltaTime);
         }
     }
 }

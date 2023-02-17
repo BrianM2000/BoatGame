@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c77ac2e8dd93908468b0811a998d0b42, type: 3}
+  m_Name: GodTrinket
+  m_EditorClassIdentifier: 
+  picture: {fileID: 0}
+  tier: 7
+  cannonLoadSpeedBonus: 0
+  cannonLoadSpeedMultipler: 1.5
+  cannonAccuracyBonus: 5
+  cannonAccuracyMultipler: 10
+  shipHealthBonus: 100
+  shipHealthMultipler: 2
+  shipSpeedBonus: 1
+  shipSpeedMultipler: 2
+  shipSailsBonus: 10
+  shipSailsMultipler: 2
+  shipBailSpeedBonus: 2
+  shipBailSpeedMultipler: 10
+  shipRepairSpeedBonus: 2
+  shipRepairSpeedMultipler: 10
+  sailorHealthBonus: 100
+  sailorHealthMultipler: 2
+  sailorWorkSpeedBonus: 2
+  sailorWorkSpeedMultipler: 10

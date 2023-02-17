@@ -88,10 +88,10 @@ public class Cannon : MonoBehaviour
 
         if(timer > 0f){
             if(task.isManned && !isLoaded){
-                timer = timer - Time.deltaTime * task.sumWorkSpeedMod();
+                timer = timer - (((Time.deltaTime  * task.sumWorkSpeedMod())) * boatAI.cannonLoadSpeedMultipler);
             }
             else{
-                timer = reloadSpeed;
+                timer = reloadSpeed - boatAI.cannonLoadSpeedBonus;
             }
         }
         else{

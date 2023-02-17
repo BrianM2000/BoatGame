@@ -10,12 +10,12 @@ public class Counter : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        //manager = GameObject.Find("PlayerManager").GetComponent<PlayerManager>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        text.text = manager.boats.Count.ToString();
+        //text.text = manager.boats.Count.ToString();
     }
 }

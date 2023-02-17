@@ -5,6 +5,7 @@ using UnityEngine;
 public class Hole : MonoBehaviour
 {
     GameObject boat;
+    BoatAI bai;
     Task task;
     float timer;
     float timeToFix = 3;
@@ -14,6 +15,7 @@ public class Hole : MonoBehaviour
         timer = timeToFix;
         boat = transform.parent.gameObject;
         task = gameObject.GetComponent<Task>();
+        bai = boat.GetComponent<BoatAI>();
     }
 
     // Update is called once per frame
@@ -21,7 +23,7 @@ public class Hole : MonoBehaviour
     {
         if(task.isManned){
             if(timer > 0f){
-                timer = timer - Time.deltaTime;
+                timer = timer - (((Time.deltaTime * task.sumWorkSpeedMod())) * bai.shipRepairSpeedMultipler);
             }
             else{
                 task.sailors[0].freeFromTask();
@@ -29,7 +31,7 @@ public class Hole : MonoBehaviour
             }
         }
         else{
-            timer = timeToFix;
+            timer = timeToFix - bai.shipRepairSpeedBonus;
         }
 
         CalcImportance();

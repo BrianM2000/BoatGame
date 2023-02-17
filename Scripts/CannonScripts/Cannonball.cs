@@ -27,9 +27,10 @@ public abstract class Cannonball : MonoBehaviour
     public virtual void OnStart(){
         body.angularVelocity = Vector3.zero;
         parent = transform.parent.transform.parent.transform.parent.gameObject;
-        var parentComp = GetComponentInParent<Cannon>();
+        Cannon parentComp = GetComponentInParent<Cannon>();
+        BoatAI boatAI = transform.root.GetComponent<BoatAI>();
         Vector3 dir = parentComp.cannonDirection;
-        float range = parentComp.cannonError * (1f/parentComp.GetComponent<Task>().sumWorkSpeedMod());
+        float range = parentComp.cannonError * (1f/((parentComp.GetComponent<Task>().sumWorkSpeedMod() + boatAI.cannonAccuracyBonus) * boatAI.cannonAccuracyMultipler));
         body.AddForce(dir + 
             new Vector3(Random.Range(-range,range),
             Random.Range(-range,range),
@@ -40,7 +41,7 @@ public abstract class Cannonball : MonoBehaviour
 
     public virtual void OnUpdate(){
         isColliding = false;
-        if(transform.position.y < 0){
+        if(transform.position.y < -10){
             Instantiate(splash, transform.position, Quaternion.Euler(0,0,0));
             //Debug.Log(transform.position);
             Destroy(gameObject);
