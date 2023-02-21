@@ -24,7 +24,11 @@ public class CreateNewPanels : MonoBehaviour
             boat.gameObject.SetActive(true);
             ps.boat = boat.gameObject;
             ps.boat.tag = "PlayerBoat";
-            ps.boat.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+            ps.boat.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionX | 
+            RigidbodyConstraints.FreezePositionZ | 
+            RigidbodyConstraints.FreezeRotationX |
+            RigidbodyConstraints.FreezeRotationY |
+            RigidbodyConstraints.FreezeRotationZ;
             manager.boatList.Add(ps.boat);
         }
         /*

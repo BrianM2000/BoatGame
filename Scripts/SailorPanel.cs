@@ -21,8 +21,8 @@ public class SailorPanel : MonoBehaviour
         TMPro.TMP_Text health = transform.Find("Health").GetComponent<TMPro.TMP_Text>();
         TMPro.TMP_Text workSpeedMod = transform.Find("WorkSpeedMod").GetComponent<TMPro.TMP_Text>();
         name.text = sailor.name.Substring(0,sailor.name.IndexOf("("));
-        health.text = sailor.GetComponent<Sailor>().health.ToString();
-        workSpeedMod.text = sailor.GetComponent<Sailor>().workSpeedModifier.ToString();
+        health.text = sailor.GetComponent<Sailor>().baseHealth.ToString();
+        workSpeedMod.text = sailor.GetComponent<Sailor>().baseWorkSpeedModifier.ToString();
 
         if(s.availableForAssignment){
             button.onClick.RemoveAllListeners();

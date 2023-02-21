@@ -75,7 +75,7 @@ public class BoatAI : MonoBehaviour
 
         bailTimer = timeToBail  - shipBailSpeedBonus;
         baseMaxHealth = ((baseMaxHealth + shipHealthBonus) * shipHealthMultipler);
-        maxSpeed = ((maxSpeed + shipSpeedBonus) * shipHealthMultipler);
+        maxSpeed = ((maxSpeed + shipSpeedBonus) * shipSpeedMultipler);
         curMaxHealth = baseMaxHealth;
 
         cannons = gameObject.GetComponentsInChildren<Cannon>();
@@ -310,7 +310,7 @@ public class BoatAI : MonoBehaviour
 
         Sailor s = sailor.GetComponent<Sailor>();
         s.health = s.baseHealth;
-        s.workSpeedModifier = s.baseWorkSpeedModifer;
+        s.workSpeedModifier = s.baseWorkSpeedModifier;
         s.health = (s.health + sailorHealthBonus) * sailorHealthMultipler;
         s.workSpeedModifier = (s.workSpeedModifier + sailorWorkSpeedBonus) * sailorWorkSpeedMultipler;
 

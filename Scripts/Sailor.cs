@@ -8,7 +8,7 @@ public abstract class Sailor : MonoBehaviour
     public float health;
     public bool isAlive = true;
     public bool isWorking = false;
-    public float baseWorkSpeedModifer;
+    public float baseWorkSpeedModifier;
     public float workSpeedModifier;
     public float availability = 0; //0 for free, 1 for absolutely not free at all
     public Task task;
@@ -17,7 +17,7 @@ public abstract class Sailor : MonoBehaviour
     void Start()
     {
         health = baseHealth;
-        workSpeedModifier = baseWorkSpeedModifer;
+        workSpeedModifier = baseWorkSpeedModifier;
     }
 
     // Update is called once per frame
@@ -69,7 +69,7 @@ public abstract class Sailor : MonoBehaviour
 
     public void reset(){
         health = baseHealth;
-        workSpeedModifier = baseWorkSpeedModifer;
+        workSpeedModifier = baseWorkSpeedModifier;
         isWorking = false;
         task = null;
         availability = 0f;

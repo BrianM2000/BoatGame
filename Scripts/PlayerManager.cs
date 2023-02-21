@@ -29,8 +29,8 @@ public class PlayerManager : MonoBehaviour
         GameObject sailor = Instantiate(baseSailor, Vector3.zero, Quaternion.identity);
         sailor.name = ReadRandomLineFromFile();
         Sailor s = sailor.GetComponent<Sailor>();
-        s.health = Round(Random.Range(75,125), 2);
-        s.workSpeedModifier = Round(Random.Range(.75f, 1.25f), 2);
+        s.baseHealth = Round(Random.Range(75,125), 2);
+        s.baseWorkSpeedModifier = Round(Random.Range(.75f, 1.25f), 2);
         return sailor;
     }
 
